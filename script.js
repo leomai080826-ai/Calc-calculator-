@@ -1,20 +1,34 @@
-const numbers = []
-const operators = []
-
+let allMethods = {"÷":"/","×":"*" }
 function init(){
     let buttons = document.getElementsByTagName("button");
+    
 
     for(var counter = 0; counter < buttons.length; counter++){
-        buttons[counter].addEventListener("click", appendValue)
+        buttons[counter].addEventListener("click", onClick)
     }
 }
-function appendValue(event) {
+function onClick(event) {
     let value = event.currentTarget.textContent;
-    console.log(event.currentTarget.textContent);
-    numbers.push(value)
-    console.log(numbers);
+    let display = document.getElementById("display");
 
+    if (value === "C") {
+        console.log("C")
+        display.textContent = "";
+    } 
+    else if (value === "=") {
+        console.log("=")
+            let expression = display.textContent;
 
-    return numbers;
+    for (let sign in allMethods) {
+        expression = expression.replaceAll(sign, allMethods[sign]);
+    }
+
+    display.textContent = eval(expression);
+    }    
+    else {
+        console.log("else")
+        display.textContent += value;
+        }
 }
-window.onload = init;
+
+    window.onload = init;
