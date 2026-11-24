@@ -1,34 +1,32 @@
-let allMethods = {"÷":"/","×":"*" }
+let specialOperations = {"÷": "/", "×": "*", "√": "sqrt", "π":"pi"};
+
 function init(){
     let buttons = document.getElementsByTagName("button");
-    
 
     for(var counter = 0; counter < buttons.length; counter++){
-        buttons[counter].addEventListener("click", onClick)
+        buttons[counter].addEventListener("click", onClick);
     }
 }
+
 function onClick(event) {
     let value = event.currentTarget.textContent;
     let display = document.getElementById("display");
 
-    if (value === "C") {
-        console.log("C")
+    if  (value === "C") {
         display.textContent = "";
-    } 
-    else if (value === "=") {
-        console.log("=")
-            let expression = display.textContent;
-
-    for (let sign in allMethods) {
-        expression = expression.replaceAll(sign, allMethods[sign]);
     }
+    else if (value === "=") {
+        let expression = display.textContent;
 
-    display.textContent = eval(expression);
-    }    
-    else {
-        console.log("else")
-        display.textContent += value;
+        for (let sign in specialOperations) {
+            expression = expression.replaceAll(sign, specialOperations[sign]);
         }
+
+        display.textContent = math.format(math.evaluate(expression), { precision: 12 });
+    }
+    else {
+        display.textContent += value;
+    }
 }
 
-    window.onload = init;
+window.onload = init;
