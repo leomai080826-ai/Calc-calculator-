@@ -1,6 +1,11 @@
-let specialOperations = {"÷": "/", "×": "*", "√": "sqrt", "π":"pi"};
+let specialOperations = {"÷": "/", "×": "*", "√": "sqrt", "π":"pi", "sin": "sind", "cos": "cosd", "tan": "tand"};
 
 function init(){
+    math.import({
+    sind: x => Math.sin(x * Math.PI / 180),
+    cosd: x => Math.cos(x * Math.PI / 180),
+    tand: x => Math.tan(x * Math.PI / 180),
+            })
     let buttons = document.getElementsByTagName("button");
 
     for(var counter = 0; counter < buttons.length; counter++){
@@ -22,7 +27,7 @@ function onClick(event) {
             expression = expression.replaceAll(sign, specialOperations[sign]);
         }
 
-        display.textContent = math.format(math.evaluate(expression), { precision: 12 });
+        display.textContent = math.format(math.round(math.evaluate(expression), 10), { precision: 12 });
     }
     else {
         display.textContent += value;
